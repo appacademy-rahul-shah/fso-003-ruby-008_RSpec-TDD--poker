@@ -16,10 +16,24 @@ RANK_VALUES = {
   '2' => 2
 }.freeze
 
+SUITS = %w[C D H S].freeze
+
 class Card
   attr_reader :rank, :suit, :value
 
   def initialize(rank, suit)
+    unless [rank, suit].all? { |e| e.is_a?(String) }
+      raise ArgumentError, 'arguments must be of Class: String'
+    end
+
+    unless RANK_VALUES.key?(rank)
+      raise ArgumentError, "#{rank} is not a valid rank"
+    end
+
+    unless SUITS.include?(suit)
+      raise ArgumentError, "#{suit} is not a valid suit"
+    end
+
     @rank = rank
     @suit = suit
     @value = RANK_VALUES[rank]

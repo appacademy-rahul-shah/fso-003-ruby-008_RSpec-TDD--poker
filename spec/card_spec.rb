@@ -59,3 +59,22 @@ describe Card do
     end
   end
 end
+
+describe Card do
+  context 'when an invalid argument is passed' do
+    it 'raises an ArgumentError when a non-String argument is passed' do
+      expect { described_class.new(1, 'C') }
+        .to raise_error(ArgumentError, 'arguments must be of Class: String')
+    end
+
+    it 'raises an ArgumentError when an invalid rank is passed' do
+      expect { described_class.new('X', 'C') }
+        .to raise_error(ArgumentError, /\w+ is not a valid rank/)
+    end
+
+    it 'raises an ArgumentError when an invalid suit is passed' do
+      expect { described_class.new('5', 'Y') }
+        .to raise_error(ArgumentError, /\w+ is not a valid suit/)
+    end
+  end
+end
